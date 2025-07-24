@@ -57,6 +57,7 @@ export default function AuthPage() {
           email: formData.email,
           password: formData.password,
           name: formData.fullName,
+          confirmPassword: formData.confirmPassword,
           userType: accountType as UserType,
         });
       }
@@ -72,11 +73,11 @@ export default function AuthPage() {
       <div className="min-h-screen bg-black flex items-center justify-center font-mono">
         <div className="text-center">
           <div className="flex items-center justify-center mb-4">
-            <div className="w-8 h-8 border border-cyan-400 flex items-center justify-center animate-pulse">
-              <Terminal className="h-4 w-4 text-cyan-400" />
+            <div className="w-8 h-8 border border-white-400 flex items-center justify-center animate-pulse">
+              <Terminal className="h-4 w-4 text-white-400" />
             </div>
           </div>
-          <div className="text-cyan-400 text-sm uppercase tracking-wider animate-pulse">
+          <div className="text-white-400 text-sm uppercase tracking-wider animate-pulse">
             LOADING...
           </div>
         </div>
@@ -91,7 +92,7 @@ export default function AuthPage() {
       
       <div className="relative w-full max-w-md">
         {/* Back to Home */}
-        <Link href="/" className="inline-flex items-center text-zinc-400 hover:text-cyan transition-colors mb-8 group text-sm uppercase tracking-wider">
+        <Link href="/" className="inline-flex items-center text-zinc-400 hover:text-white transition-colors mb-8 group text-sm uppercase tracking-wider">
           <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           RETURN
         </Link>
@@ -99,8 +100,8 @@ export default function AuthPage() {
         <Card className="bg-zinc-950 border border-zinc-800">
           <CardHeader className="text-center border-b border-zinc-800">
             <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="w-8 h-8 border border-cyan-400 flex items-center justify-center">
-                <Terminal className="h-4 w-4 text-cyan-400" />
+              <div className="w-8 h-8 border border-white-400 flex items-center justify-center">
+                <Terminal className="h-4 w-4 text-white-400" />
               </div>
               <span className="text-2xl font-bold tracking-wider">PRINTEASE</span>
             </div>
@@ -123,8 +124,8 @@ export default function AuthPage() {
                   onClick={() => setAccountType('user')}
                   className={`flex items-center space-x-2 px-4 py-2 transition-all text-xs uppercase tracking-wider ${
                     accountType === 'user'
-                      ? 'bg-cyan-400 text-black'
-                      : 'text-zinc-400 hover:text-cyan'
+                      ? 'bg-white-400 text-black'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <User className="h-3 w-3" />
@@ -134,8 +135,8 @@ export default function AuthPage() {
                   onClick={() => setAccountType('vendor')}
                   className={`flex items-center space-x-2 px-4 py-2 transition-all text-xs uppercase tracking-wider ${
                     accountType === 'vendor'
-                      ? 'bg-cyan-400 text-black'
-                      : 'text-zinc-400 hover:text-cyan'
+                      ? 'bg-white-400 text-black'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <Building className="h-3 w-3" />
@@ -149,13 +150,13 @@ export default function AuthPage() {
               <TabsList className="grid w-full grid-cols-2 bg-black border border-zinc-700 p-1">
                 <TabsTrigger 
                   value="login" 
-                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-cyan text-zinc-400 text-xs uppercase tracking-wider"
+                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-zinc-400 text-xs uppercase tracking-wider"
                 >
                   ACCESS
                 </TabsTrigger>
                 <TabsTrigger 
                   value="register"
-                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-cyan text-zinc-400 text-xs uppercase tracking-wider"
+                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-zinc-400 text-xs uppercase tracking-wider"
                 >
                   REGISTER
                 </TabsTrigger>
@@ -181,7 +182,7 @@ export default function AuthPage() {
                         placeholder="user@domain.com"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="pl-10 bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
+                        className="pl-10 bg-black border-zinc-700 focus:border-white-400 font-mono text-sm"
                         required
                       />
                     </div>
@@ -199,13 +200,13 @@ export default function AuthPage() {
                         placeholder="••••••••"
                         value={formData.password}
                         onChange={(e) => handleInputChange('password', e.target.value)}
-                        className="pl-10 pr-10 bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
+                        className="pl-10 pr-10 bg-black border-zinc-700 focus:border-white-400 font-mono text-sm"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-zinc-500 hover:text-cyan"
+                        className="absolute right-3 top-3 text-zinc-500 hover:text-white"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -213,7 +214,7 @@ export default function AuthPage() {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <Link href="#" className="text-xs text-cyan-400 hover:text-cyan-300 uppercase tracking-wider">
+                    <Link href="#" className="text-xs text-white-400 hover:text-white-300 uppercase tracking-wider">
                       RESET PASSWORD
                     </Link>
                   </div>
@@ -246,7 +247,7 @@ export default function AuthPage() {
                       placeholder={accountType === 'user' ? 'John Doe' : 'Contact Person'}
                       value={formData.fullName}
                       onChange={(e) => handleInputChange('fullName', e.target.value)}
-                      className="bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
+                      className="bg-black border-zinc-700 focus:border-white-400 font-mono text-sm"
                       required
                     />
                   </div>
@@ -263,7 +264,7 @@ export default function AuthPage() {
                         placeholder="user@domain.com"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="pl-10 bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
+                        className="pl-10 bg-black border-zinc-700 focus:border-white-400 font-mono text-sm"
                         required
                       />
                     </div>
@@ -281,13 +282,13 @@ export default function AuthPage() {
                         placeholder="••••••••"
                         value={formData.password}
                         onChange={(e) => handleInputChange('password', e.target.value)}
-                        className="pl-10 pr-10 bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
+                        className="pl-10 pr-10 bg-black border-zinc-700 focus:border-white-400 font-mono text-sm"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-zinc-500 hover:text-cyan"
+                        className="absolute right-3 top-3 text-zinc-500 hover:text-white"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -306,7 +307,7 @@ export default function AuthPage() {
                         placeholder="••••••••"
                         value={formData.confirmPassword}
                         onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                        className="pl-10 bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
+                        className="pl-10 bg-black border-zinc-700 focus:border-white-400 font-mono text-sm"
                         required
                       />
                     </div>
@@ -314,11 +315,11 @@ export default function AuthPage() {
 
                   <div className="text-xs text-zinc-500 font-mono">
                     BY REGISTERING, YOU AGREE TO OUR{' '}
-                    <Link href="#" className="text-cyan-400 hover:text-cyan-300">
+                    <Link href="#" className="text-white-400 hover:text-white-300">
                       TERMS
                     </Link>{' '}
                     AND{' '}
-                    <Link href="#" className="text-cyan-400 hover:text-cyan-300">
+                    <Link href="#" className="text-white-400 hover:text-white-300">
                       PRIVACY POLICY
                     </Link>
                     .
@@ -367,7 +368,7 @@ export default function AuthPage() {
         </Card>
 
         <p className="text-center text-xs text-zinc-500 mt-6 font-mono uppercase tracking-wider">
-          NEED ASSISTANCE? <Link href="#" className="text-cyan-400 hover:text-cyan-300">CONTACT SUPPORT</Link>
+          NEED ASSISTANCE? <Link href="#" className="text-white-400 hover:text-white-300">CONTACT SUPPORT</Link>
         </p>
       </div>
     </div>

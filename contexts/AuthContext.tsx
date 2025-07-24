@@ -28,6 +28,7 @@ export interface AuthContextType {
 export interface RegisterData {
   email: string;
   password: string;
+  confirmPassword: string;
   name: string;
   userType: UserType;
 }
@@ -116,6 +117,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           },
           body: JSON.stringify(userData),
         });
+
+        console.log(userResponse);
 
         if(!userResponse.ok){
           throw new Error("Failed to register");
