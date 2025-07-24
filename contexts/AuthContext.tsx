@@ -1,13 +1,14 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { toast } from 'sonner';
 
 export type UserType = 'user' | 'vendor';
 
 export interface User {
   id: string;
   email: string;
-  fullName: string;
+  name: string;
   userType: UserType;
   companyName?: string;
   phone?: string;
@@ -27,10 +28,8 @@ export interface AuthContextType {
 export interface RegisterData {
   email: string;
   password: string;
-  fullName: string;
+  name: string;
   userType: UserType;
-  companyName?: string;
-  phone?: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -56,52 +55,98 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Simulate API calls - replace with actual API endpoints
   const login = async (email: string, password: string, userType: UserType): Promise<void> => {
     setIsLoading(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock successful login
-      const mockUser: User = {
-        id: '1',
-        email,
-        fullName: userType === 'user' ? 'John Doe' : 'Jane Smith',
-        userType,
-        companyName: userType === 'vendor' ? 'ACME Corporation' : undefined,
-        phone: '+1 (555) 000-0000',
-        createdAt: new Date().toISOString(),
-      };
 
-      setUser(mockUser);
-      localStorage.setItem('auth_token', 'mock_token_' + userType);
-      localStorage.setItem('user_data', JSON.stringify(mockUser));
+    try {
+
+      if(userType === 'user') {
+        const userResponse = await fetch("http://localhost:8080/api/v1/user/sign-in", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if(!userResponse.ok){
+          throw new Error("Failed to login");
+        }
+
+        const userData = await userResponse.json();
+        setUser(userData.data.user);
+        localStorage.setItem('auth_token', userData.data.token);
+        localStorage.setItem('user_data', JSON.stringify(userData.data.user));
+        console.log("user authenticated");
+      }
+      if(userType === 'vendor'){
+        const vendorResponse = await fetch("http://localhost:8080/api/v1/vendor/sign-in", {
+          method: "POST",
+          headers:{
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if(!vendorResponse.ok){
+          throw new Error("Failed to login");
+        }
+
+        const vendorData = await vendorResponse.json();
+        setUser(vendorData.data.user);
+        localStorage.setItem('auth_token', vendorData.data.token);
+        localStorage.setItem('user_data', JSON.stringify(vendorData.data.user));
+        console.log("vendor authenticated");
+      }
+      
     } catch (error) {
-      throw new Error('Authentication failed');
-    } finally {
-      setIsLoading(false);
+      console.log(error);
+      toast.error("Failed to login");
     }
+    setIsLoading(false);
   };
 
   const register = async (userData: RegisterData): Promise<void> => {
     setIsLoading(true);
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock successful registration
-      const newUser: User = {
-        id: Date.now().toString(),
-        email: userData.email,
-        fullName: userData.fullName,
-        userType: userData.userType,
-        companyName: userData.companyName,
-        phone: userData.phone,
-        createdAt: new Date().toISOString(),
-      };
+      if(userData.userType === 'user'){
+        const userResponse = await fetch("http://localhost:8080/api/v1/user/sign-up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        });
 
-      setUser(newUser);
-      localStorage.setItem('auth_token', 'mock_token_' + userData.userType);
-      localStorage.setItem('user_data', JSON.stringify(newUser));
+        if(!userResponse.ok){
+          throw new Error("Failed to register");
+        }
+
+        const user = await userResponse.json();
+        setUser(user.data.user);
+        localStorage.setItem('auth_token', user.data.token);
+        localStorage.setItem('user_data', JSON.stringify(user.data.user));
+      }
+      if(userData.userType === 'vendor'){
+        const vendorResponse = await fetch("http://localhost:8080/api/v1/vendor/sign-up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        });
+
+        if(!vendorResponse.ok){
+          throw new Error("Failed to register");
+        }
+
+        const vendor = await vendorResponse.json();
+        setUser(vendor.data.user);
+        localStorage.setItem('auth_token', vendor.data.token);
+        localStorage.setItem('user_data', JSON.stringify(vendor.data.user));
+      }
     } catch (error) {
+      console.log(error);
+      toast.error("Failed to register");
       throw new Error('Registration failed');
     } finally {
       setIsLoading(false);
@@ -121,9 +166,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const userData = localStorage.getItem('user_data');
       
       if (token && userData) {
-        // Simulate token validation
-        await new Promise(resolve => setTimeout(resolve, 500));
-        setUser(JSON.parse(userData));
+        const storedUser = JSON.parse(userData);
+        const userType = storedUser.userType;
+        
+        // Call appropriate endpoint based on user type
+        const endpoint = userType === 'vendor' 
+          ? "http://localhost:8080/api/v1/vendor/sample"
+          : "http://localhost:8080/api/v1/user/sample";
+
+        const response = await fetch(endpoint, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if(!response.ok){
+          throw new Error("Failed to check auth");
+        }
+
+        const result = await response.json();
+        // For user endpoint, the response has user property, for vendor it doesn't
+        const authenticatedUser = result.user || storedUser;
+        setUser(authenticatedUser);
+        console.log(`${userType} authenticated`);
       }
     } catch (error) {
       console.error('Auth check failed:', error);

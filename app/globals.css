@@ -92,11 +92,11 @@
   }
   
   .cyber-button {
-    @apply bg-transparent border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 font-mono uppercase tracking-wider;
+    @apply bg-transparent border border-white text-white hover:bg-white hover:text-black transition-all duration-300 font-mono uppercase tracking-wider;
   }
   
   .primary-button {
-    @apply bg-cyan-400 text-black hover:bg-cyan-300 transition-all duration-300 font-mono uppercase tracking-wider;
+    @apply bg-white text-black hover:bg-white transition-all duration-300 font-mono uppercase tracking-wider;
   }
   
   .data-grid {

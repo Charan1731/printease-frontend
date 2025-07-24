@@ -14,7 +14,7 @@ function VendorDashboardContent() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-mono">
+    <div className="min-h-screen bg-black text-cyan font-mono">
       {/* Header */}
       <header className="border-b border-zinc-800 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

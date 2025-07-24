@@ -58,8 +58,8 @@ export default function Home() {
         <div className="glass-nav relative px-6 py-3 mx-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 border border-cyan-400 flex items-center justify-center">
-                <Terminal className="h-4 w-4 text-cyan-400" />
+              <div className="w-8 h-8 border border-white-400 flex items-center justify-center">
+                <Terminal className="h-4 w-4 text-white-400" />
               </div>
               <span className="text-xl font-bold tracking-wider">PRINTEASE</span>
             </div>
@@ -95,14 +95,14 @@ export default function Home() {
         <div className="absolute inset-0 data-grid opacity-20"></div>
         <div className="max-w-7xl mx-auto text-center relative">
           <div className="inline-flex items-center px-4 py-2 border border-zinc-700 mb-8">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+            <div className="w-2 h-2 bg-white-400 rounded-full mr-3 animate-pulse"></div>
             <span className="text-sm text-zinc-400 uppercase tracking-wider">SYSTEM ONLINE</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-none tracking-tighter">
             PDF
             <br />
-            <span className="text-cyan-400 glow-text">PROTOCOL</span>
+            <span className="text-white-400 glow-text">PROTOCOL</span>
           </h1>
           
           <p className="text-lg text-zinc-400 mb-12 max-w-2xl mx-auto font-mono">
@@ -126,7 +126,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl font-bold text-cyan-400 mb-2">{stat.value}</div>
+                <div className="text-3xl font-bold text-white-400 mb-2">{stat.value}</div>
                 <div className="text-xs text-zinc-500 uppercase tracking-wider">{stat.label}</div>
               </div>
             ))}
@@ -155,7 +155,7 @@ export default function Home() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <feature.icon className={`h-6 w-6 transition-colors duration-300 ${
-                      hoveredFeature === index ? 'text-cyan-400' : 'text-zinc-400'
+                      hoveredFeature === index ? 'text-white-400' : 'text-zinc-400'
                     }`} />
                     <div className="text-xs text-zinc-500 font-mono">
                       {String(index + 1).padStart(2, '0')}
@@ -193,7 +193,7 @@ export default function Home() {
                   'Monitoring & alerting'
                 ].map((item, index) => (
                   <li key={index} className="flex items-center space-x-3">
-                    <div className="w-1 h-1 bg-cyan-400 rounded-full"></div>
+                    <div className="w-1 h-1 bg-white-400 rounded-full"></div>
                     <span className="text-zinc-300 text-sm font-mono">{item}</span>
                   </li>
                 ))}
@@ -203,7 +203,7 @@ export default function Home() {
             <div className="relative">
               <div className="bg-black border border-zinc-700 p-6 font-mono text-sm">
                 <div className="flex items-center justify-between mb-4 pb-2 border-b border-zinc-700">
-                  <span className="text-cyan-400">terminal@printease:~$</span>
+                  <span className="text-white-400">terminal@printease:~$</span>
                   <div className="flex space-x-2">
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -212,19 +212,19 @@ export default function Home() {
                 </div>
                 <div className="space-y-2 text-zinc-300">
                   <div className="scan-line">
-                    <span className="text-cyan-400">$</span> docker-compose up -d
+                    <span className="text-white-400">$</span> docker-compose up -d
                   </div>
                   <div className="text-green-400">✓ Database initialized</div>
                   <div className="text-green-400">✓ API gateway started</div>
                   <div className="text-green-400">✓ Load balancer active</div>
                   <div className="scan-line">
-                    <span className="text-cyan-400">$</span> kubectl get pods
+                    <span className="text-white-400">$</span> kubectl get pods
                   </div>
                   <div>NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</div>
                   <div>printease-api-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Running</div>
                   <div>printease-api-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Running</div>
                   <div>printease-db&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Running</div>
-                  <div className="text-cyan-400 animate-pulse">█</div>
+                  <div className="text-white-400 animate-pulse">█</div>
                 </div>
               </div>
             </div>
@@ -259,8 +259,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 border border-cyan-400 flex items-center justify-center">
-                  <Terminal className="h-4 w-4 text-cyan-400" />
+                <div className="w-8 h-8 border border-white-400 flex items-center justify-center">
+                  <Terminal className="h-4 w-4 text-white-400" />
                 </div>
                 <span className="text-xl font-bold tracking-wider">PRINTEASE</span>
               </div>

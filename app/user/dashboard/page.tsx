@@ -21,8 +21,8 @@ function UserDashboardContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 border border-cyan-400 flex items-center justify-center">
-                <Terminal className="h-4 w-4 text-cyan-400" />
+              <div className="w-8 h-8 border border-white-400 flex items-center justify-center">
+                <Terminal className="h-4 w-4 text-white-400" />
               </div>
               <span className="text-xl font-bold tracking-wider">PRINTEASE</span>
             </div>
@@ -30,7 +30,7 @@ function UserDashboardContent() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-sm">
                 <User className="h-4 w-4 text-zinc-400" />
-                <span className="text-zinc-400">{user?.fullName}</span>
+                <span className="text-zinc-400">{user?.name}</span>
               </div>
               <Button onClick={handleLogout} className="cyber-button h-9 px-4 text-xs">
                 <LogOut className="h-3 w-3 mr-2" />
@@ -66,7 +66,7 @@ function UserDashboardContent() {
                     {String(index + 1).padStart(2, '0')}
                   </div>
                 </div>
-                <div className="text-2xl font-bold text-cyan-400 mb-1">{stat.value}</div>
+                <div className="text-2xl font-bold text-white-400 mb-1">{stat.value}</div>
                 <div className="text-xs text-zinc-500 uppercase tracking-wider">{stat.label}</div>
               </CardContent>
             </Card>

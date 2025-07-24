@@ -24,8 +24,6 @@ export default function AuthPage() {
     password: '',
     confirmPassword: '',
     fullName: '',
-    companyName: '',
-    phone: ''
   });
 
   // Redirect if already authenticated
@@ -54,17 +52,12 @@ export default function AuthPage() {
         if (formData.password !== formData.confirmPassword) {
           throw new Error('Passwords do not match');
         }
-        if (accountType === 'vendor' && !formData.companyName) {
-          throw new Error('Company name is required for vendors');
-        }
 
         await register({
           email: formData.email,
           password: formData.password,
-          fullName: formData.fullName,
+          name: formData.fullName,
           userType: accountType as UserType,
-          companyName: formData.companyName,
-          phone: formData.phone,
         });
       }
     } catch (err) {
@@ -98,7 +91,7 @@ export default function AuthPage() {
       
       <div className="relative w-full max-w-md">
         {/* Back to Home */}
-        <Link href="/" className="inline-flex items-center text-zinc-400 hover:text-white transition-colors mb-8 group text-sm uppercase tracking-wider">
+        <Link href="/" className="inline-flex items-center text-zinc-400 hover:text-cyan transition-colors mb-8 group text-sm uppercase tracking-wider">
           <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           RETURN
         </Link>
@@ -131,7 +124,7 @@ export default function AuthPage() {
                   className={`flex items-center space-x-2 px-4 py-2 transition-all text-xs uppercase tracking-wider ${
                     accountType === 'user'
                       ? 'bg-cyan-400 text-black'
-                      : 'text-zinc-400 hover:text-white'
+                      : 'text-zinc-400 hover:text-cyan'
                   }`}
                 >
                   <User className="h-3 w-3" />
@@ -142,7 +135,7 @@ export default function AuthPage() {
                   className={`flex items-center space-x-2 px-4 py-2 transition-all text-xs uppercase tracking-wider ${
                     accountType === 'vendor'
                       ? 'bg-cyan-400 text-black'
-                      : 'text-zinc-400 hover:text-white'
+                      : 'text-zinc-400 hover:text-cyan'
                   }`}
                 >
                   <Building className="h-3 w-3" />
@@ -156,13 +149,13 @@ export default function AuthPage() {
               <TabsList className="grid w-full grid-cols-2 bg-black border border-zinc-700 p-1">
                 <TabsTrigger 
                   value="login" 
-                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-zinc-400 text-xs uppercase tracking-wider"
+                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-cyan text-zinc-400 text-xs uppercase tracking-wider"
                 >
                   ACCESS
                 </TabsTrigger>
                 <TabsTrigger 
                   value="register"
-                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-zinc-400 text-xs uppercase tracking-wider"
+                  className="data-[state=active]:bg-zinc-800 data-[state=active]:text-cyan text-zinc-400 text-xs uppercase tracking-wider"
                 >
                   REGISTER
                 </TabsTrigger>
@@ -212,7 +205,7 @@ export default function AuthPage() {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-zinc-500 hover:text-white"
+                        className="absolute right-3 top-3 text-zinc-500 hover:text-cyan"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -258,23 +251,6 @@ export default function AuthPage() {
                     />
                   </div>
 
-                  {accountType === 'vendor' && (
-                    <div className="space-y-2">
-                      <Label htmlFor="companyName" className="text-xs uppercase tracking-wider text-zinc-400">
-                        COMPANY NAME
-                      </Label>
-                      <Input
-                        id="companyName"
-                        type="text"
-                        placeholder="ACME Corporation"
-                        value={formData.companyName}
-                        onChange={(e) => handleInputChange('companyName', e.target.value)}
-                        className="bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
-                        required
-                      />
-                    </div>
-                  )}
-
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-xs uppercase tracking-wider text-zinc-400">
                       EMAIL ADDRESS
@@ -291,21 +267,6 @@ export default function AuthPage() {
                         required
                       />
                     </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-xs uppercase tracking-wider text-zinc-400">
-                      PHONE NUMBER
-                    </Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="bg-black border-zinc-700 focus:border-cyan-400 font-mono text-sm"
-                      required
-                    />
                   </div>
 
                   <div className="space-y-2">
@@ -326,7 +287,7 @@ export default function AuthPage() {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-zinc-500 hover:text-white"
+                        className="absolute right-3 top-3 text-zinc-500 hover:text-cyan"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
