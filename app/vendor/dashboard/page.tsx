@@ -5,6 +5,7 @@ import { AuthGuard } from '@/components/AuthGuard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Terminal, Building, Users, FileText, Settings, LogOut, TrendingUp } from 'lucide-react';
+import { toast } from 'sonner';
 
 function VendorDashboardContent() {
   const { user, logout } = useAuth();
@@ -12,6 +13,16 @@ function VendorDashboardContent() {
   const handleLogout = () => {
     logout();
   };
+
+  const handleDocuments = async () => {
+
+    try {
+      
+    } catch (error : unknown) {
+      console.log(error);
+      toast.message(error as string);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-black text-white font-mono">
@@ -83,7 +94,7 @@ function VendorDashboardContent() {
                 <Users className="h-4 w-4 mr-2" />
                 MANAGE CLIENTS
               </Button>
-              <Button className="w-full cyber-button h-12 text-sm">
+              <Button className="w-full cyber-button h-12 text-sm" onClick={() => handleDocuments()}>
                 <FileText className="h-4 w-4 mr-2" />
                 VIEW DOCUMENTS
               </Button>
