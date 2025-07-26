@@ -6,13 +6,57 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Terminal, Upload, FileText, Settings, LogOut, User } from 'lucide-react';
 import Link from 'next/link';
+import { FileUpload } from '@/components/ui/file-upload';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 function UserDashboardContent() {
   const { user, logout } = useAuth();
-
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const router = useRouter();
   const handleLogout = () => {
     logout();
   };
+
+  const handleUpload =  async (file: File[]) => {
+
+    setIsLoading(true);
+    const token = localStorage.getItem("user_toke");
+    if(!token){
+      toast.error("Please login to upload a file");
+      return;
+    }
+
+    try {
+
+      const response = await fetch(`http://localhost:8080/api/v1/pdf/upload`, {
+        method: 'POST',
+        headers:{
+          "Content-Type":"application/pdf",
+          "Authorization":`Bearer ${token}`
+        },
+        body: JSON.stringify({
+          pdf: file
+        })
+      })
+
+      if(!response.ok){
+        toast.error("Failed to upload file");
+        return;
+      }      
+
+      toast.success("File uploaded successfully");
+      router.refresh();
+    } catch (error) {
+
+      toast.error("Failed to upload file")
+      
+    }finally{
+      setIsLoading(false);
+    }
+
+  }
 
   return (
     <div className="min-h-screen bg-black text-white font-mono">
@@ -24,7 +68,9 @@ function UserDashboardContent() {
               <div className="w-8 h-8 border border-white-400 flex items-center justify-center">
                 <Terminal className="h-4 w-4 text-white-400" />
               </div>
-              <span className="text-xl font-bold tracking-wider">PRINTEASE</span>
+              <Link href="/">
+                <span className="text-xl font-bold tracking-wider">PRINTEASE</span>
+              </Link>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -80,10 +126,11 @@ function UserDashboardContent() {
               <CardTitle className="text-lg tracking-wider">QUICK ACTIONS</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
-              <Button className="w-full primary-button h-12 text-sm">
+              {/* <Button className="w-full primary-button h-12 text-sm" onClick={() => handleUpload()}>
                 <Upload className="h-4 w-4 mr-2" />
                 UPLOAD PDF
-              </Button>
+              </Button> */}
+              <FileUpload onChange={handleUpload}/>
               <Button className="w-full cyber-button h-12 text-sm">
                 <FileText className="h-4 w-4 mr-2" />
                 VIEW DOCUMENTS

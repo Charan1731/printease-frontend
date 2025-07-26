@@ -14,12 +14,12 @@ export default function Home() {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
   // Redirect authenticated users to their dashboard
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      const dashboardPath = user.userType === 'vendor' ? '/vendor/dashboard' : '/user/dashboard';
-      router.push(dashboardPath);
-    }
-  }, [isAuthenticated, user, router]);
+  // useEffect(() => {
+  //   if (isAuthenticated && user) {
+  //     const dashboardPath = user.userType === 'vendor' ? '/vendor/dashboard' : '/user/dashboard';
+  //     router.push(dashboardPath);
+  //   }
+  // }, [isAuthenticated, user, router]);
 
   const features = [
     {
@@ -55,7 +55,7 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white font-mono">
       {/* Navigation */}
       <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl mx-auto px-4">
-        <div className="glass-nav relative px-6 py-3 mx-4">
+        <div className="glass-nav relative px-6 py-3 mx-4 border border-white">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 border border-white-400 flex items-center justify-center">
@@ -268,7 +268,9 @@ export default function Home() {
                 Advanced PDF processing protocol for enterprise systems.
               </p>
               <div className="flex space-x-4">
-                <Github className="h-4 w-4 text-zinc-400 hover:text-white cursor-pointer transition-colors" />
+                <Link href="https://github.com/Charan1731" target='_blank'>
+                  <Github className="h-4 w-4 text-zinc-400 hover:text-white cursor-pointer transition-colors" />
+                </Link>
                 <Mail className="h-4 w-4 text-zinc-400 hover:text-white cursor-pointer transition-colors" />
                 <Phone className="h-4 w-4 text-zinc-400 hover:text-white cursor-pointer transition-colors" />
               </div>
